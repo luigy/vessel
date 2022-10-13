@@ -22,6 +22,7 @@ import Data.Proxy
 import Data.Map (Map)
 import Data.Map.Monoidal (MonoidalMap(..))
 import Data.Semigroup (First(..), Max(..))
+import Data.Semigroup.Commutative (Commutative)
 import Data.Dependent.Map (DMap)
 import Data.Text (Text)
 import Reflex
@@ -77,7 +78,7 @@ have.  The latter is almost always quicker.
 instance (Eq g, Monoid g) => Semigroup (Qsimple g) where Qsimple x y <> Qsimple x' y' = Qsimple (x <> x') (y <> y')
 instance (Eq g, Monoid g) => Monoid (Qsimple g) where mempty = Qsimple mempty mempty
 instance (Eq g, Group g) => Group (Qsimple g) where negateG (Qsimple x y) = Qsimple (negateG x) (negateG y)
-instance (Eq g, Monoid g, Additive g) => Additive (Qsimple g)
+instance (Eq g, Monoid g, Commutative g) => Commutative (Qsimple g)
 instance GrpFunctor Qsimple where mapG f (Qsimple x y) = Qsimple (mapG f x) (mapG f y)
 
 ```
@@ -275,7 +276,7 @@ positive x
 
 
 dischargeMonadQuery :: forall v t m a.
-  ( Additive (v SelectedCount), Group (v SelectedCount), PerformEvent t m, GrpFunctor v, Eq (v SelectedCount)
+  ( Commutative (v SelectedCount), Group (v SelectedCount), PerformEvent t m, GrpFunctor v, Eq (v SelectedCount)
   , Monoid (QueryResult (v SelectedCount)), PostBuild t m, MonadHold t m, MonadFix m, Widget t m
   , Query (v SelectedCount)
   )

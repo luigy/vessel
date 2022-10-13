@@ -37,7 +37,8 @@ import Data.Set (Set)
 import Data.Some (Some(Some))
 import Data.Type.Equality
 import GHC.Generics
-import Data.Patch (Group(..), Additive)
+import Data.Patch (Group(..))
+import Data.Semigroup.Commutative (Commutative)
 import Reflex.Query.Class
 import qualified Data.Dependent.Map as DMap'
 import qualified Data.Dependent.Map.Monoidal as DMap
@@ -76,7 +77,7 @@ instance Ord k => GCompare (SubVesselKey k v) where
 -- TODO: this representation has the advantage that all of it's instances come "free", but the mostly "right" representation is probably
 -- ... Vessel v (Compose (MonoidalMap k) f)
 newtype SubVessel (k :: *)  (v :: (* -> *) -> *) (f :: * -> *) = SubVessel { unSubVessel :: Vessel (SubVesselKey k v) f }
-  deriving (FromJSON, ToJSON, Semigroup, Monoid, Generic, Group, Additive, Eq)
+  deriving (FromJSON, ToJSON, Semigroup, Monoid, Generic, Group, Commutative, Eq)
 
 deriving instance (Show k, Show (v f)) => Show (SubVessel k v f)
 

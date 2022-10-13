@@ -41,7 +41,8 @@ import Data.Witherable
 import Data.Vessel.Internal
 import GHC.Generics
 import Reflex.Query.Class
-import Data.Patch (Group(..), Additive)
+import Data.Patch (Group(..))
+import Data.Semigroup.Commutative (Commutative)
 import Data.Functor.Compose
 import Data.Align
 import qualified Data.Dependent.Map as DMap'
@@ -117,7 +118,7 @@ instance (Has' Semigroup k (FlipAp g), GCompare k, Has View k) => Monoid (Vessel
 instance (Has' Semigroup k (FlipAp g), Has' Group k (FlipAp g), GCompare k, Has View k) => Group (Vessel k g) where
   negateG (Vessel m) = Vessel (negateG m) --TODO: Do we know that nullV can't be the result of negateG?
 
-instance (Has' Additive k (FlipAp g), Has' Semigroup k (FlipAp g), GCompare k, Has View k) => Additive (Vessel k g)
+instance (Has' Commutative k (FlipAp g), Has' Semigroup k (FlipAp g), GCompare k, Has View k) => Commutative (Vessel k g)
 
 ------- The View instance for Vessel itself --------
 

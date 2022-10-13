@@ -20,11 +20,12 @@
 module Data.Vessel.Identity where
 
 import Data.Aeson
-import Data.Patch (Group(..), Additive)
+import Data.Patch (Group(..))
 import GHC.Generics
 import Data.Functor.Compose
 import Data.Functor.Const
 import Data.Functor.Identity
+import Data.Semigroup.Commutative (Commutative)
 import Data.These
 
 import Data.Vessel.Class
@@ -33,7 +34,7 @@ import Data.Vessel.ViewMorphism
 
 -- | A functor-indexed container corresponding to Identity. (i.e. a single non-deletable item)
 newtype IdentityV (a :: *) (g :: * -> *) = IdentityV { unIdentityV :: g a }
-  deriving (Eq, Ord, Show, Read, Semigroup, Monoid, Group, Additive, Generic, ToJSON, FromJSON)
+  deriving (Eq, Ord, Show, Read, Semigroup, Monoid, Group, Commutative, Generic, ToJSON, FromJSON)
 
 instance View (IdentityV a) where
   cropV f (IdentityV s) (IdentityV x) = Just $ IdentityV $ f s x
