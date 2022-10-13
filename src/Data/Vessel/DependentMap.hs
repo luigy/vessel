@@ -56,9 +56,9 @@ deriving instance (GCompare k, Has' Semigroup k (g :.: v), Has' Monoid k (g :.: 
 deriving instance (GCompare k, Has' Semigroup k (g :.: v), Has' Monoid k (g :.: v), Has' Group k (g :.: v)) => Group (DMapV k v g)
 deriving instance (GCompare k, Has' Semigroup k (g :.: v), Has' Monoid k (g :.: v), Has' Group k (g :.: v), Has' Commutative k (g :.: v)) => Commutative (DMapV k v g)
 
--- instance (Has' ToJSON k (g :.: v), ForallF ToJSON k) => ToJSON (DMapV k v g)
+instance (Has' ToJSON k (g :.: v), ForallF ToJSON k) => ToJSON (DMapV k v g)
 
--- instance (Has' FromJSON k (g :.: v), FromJSON (Some k), GCompare k) => FromJSON (DMapV k v g)
+instance (Has' FromJSON k (g :.: v), FromJSON (Some k), GCompare k) => FromJSON (DMapV k v g)
 
 deriving instance (ForallF Show k, Has' Show k (g :.: v)) => Show (DMapV k v g)
 
