@@ -46,7 +46,7 @@ library
     UndecidableInstances
 
   build-depends:
-      aeson                        >=1.4     && <1.6
+      aeson                        >=1.4     && <2.2
     , base                         >=4.9     && <4.15
     , base-orphans                 ^>=0.8.5
     , bifunctors                   ^>=5.5
